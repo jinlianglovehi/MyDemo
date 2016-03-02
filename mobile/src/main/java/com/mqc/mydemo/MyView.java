@@ -7,15 +7,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
  * Created by mengqc on 2016/2/25.
  */
 public class MyView extends View {
-
+    private static final String TAG = MyView.class.getSimpleName();
     private int height = 260;
-  private int  percent = 0 ;
+    private int percent = 0;
     private Paint mPaint;
 
     public MyView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -39,14 +40,28 @@ public class MyView extends View {
         mPaint.setColor(getResources().getColor(R.color.color_rect));
     }
 
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.i(TAG, "onMeasure ");
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.i(TAG, "onLayout ");
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i(TAG, "onDraw ");
         //left 矩形左边的X轴坐标
         //top 矩形顶部的Y轴坐标
         //right 矩形右边的X轴坐标
         //bottom 矩形底部的Y轴坐标
-        this.height = 260-2*percent;
+        this.height = 260 - 2 * percent;
         canvas.drawRect(100, 60, 120, 260, mPaint);
         mPaint.setStrokeWidth(1.0f);
         mPaint.setColor(Color.BLACK);
@@ -89,7 +104,7 @@ public class MyView extends View {
         mPaint.setTextSize(20);
 
 
-        canvas.drawText(""+percent, 120 + bm.getWidth() / 2 - 10, height + 5, mPaint);
+        canvas.drawText("" + percent, 120 + bm.getWidth() / 2 - 10, height + 5, mPaint);
         mPaint.setColor(getResources().getColor(R.color.color_text));
         mPaint.setTextSize(30);
         canvas.drawText("BMI", 120 + bm.getWidth() + 5, height + 10, mPaint);
@@ -104,8 +119,8 @@ public class MyView extends View {
      */
 
     public void setHeight(int percent) {
-        if(percent>100 || percent <0){
-            return ;
+        if (percent > 100 || percent < 0) {
+            return;
         }
         this.percent = percent;
         invalidate();
