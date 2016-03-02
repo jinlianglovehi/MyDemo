@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <!-- 中间的内容-->
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/color_rect"
+        android:orientation="vertical"
+        >
+
+        <com.mqc.mydemo.MyHeartView
+            android:id="@+id/my_heart_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.mqc.mydemo.MyHeartView>
+
+    </LinearLayout>
+
+
+    <!-- 底部的内容-->
+    <LinearLayout
+        android:id="@+id/bottom_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-300dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="添加内容"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
