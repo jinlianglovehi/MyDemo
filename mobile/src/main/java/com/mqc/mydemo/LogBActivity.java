@@ -2,6 +2,7 @@ package com.mqc.mydemo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 /**
@@ -14,8 +15,7 @@ public class LogBActivity extends Activity{
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate ");
         setContentView(R.layout.activity_log_b);
-        
-        
+
     }
 
     @Override
