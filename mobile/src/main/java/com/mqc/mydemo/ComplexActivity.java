@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.nineoldandroids.animation.AnimatorSet;
@@ -12,6 +13,9 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by jinliang on 16/3/2.
@@ -25,6 +29,9 @@ public class ComplexActivity extends Activity {
     LinearLayout bottomContent;
     @Bind(R.id.my_heart_view)
     MyHeartView myHeartView;
+    @Bind(R.id.buttonPanel)
+    Button buttonPanel;
+    private int contentPosition = -300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +39,59 @@ public class ComplexActivity extends Activity {
         setContentView(R.layout.complex_layout);
         ButterKnife.bind(this);
         myHeartView.drawHearMethod();
+        initObserver();
     }
 
+    /**
+     * 注册观察者的内容的信息
+     */
+    private void initObserver() {
+
+        //观察者的内容
+        rx.Observer<String> observer = new rx.Observer<String>() {
+
+            @Override
+            public void onCompleted() {
+                Log.i(TAG, "onCompleted ");
+
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.i(TAG, "onError ");
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "onNext ");
+
+            }
+        };
+
+
+    }
+
+    @OnClick(R.id.buttonPanel)
+    public void buttonCLick() {
+
+//      被观察者的内容的信息
+        rx.Observable observable = rx.Observable.create(
+                new Observable.OnSubscribe<String>() {
+
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        Log.i(TAG, "call ");
+                        subscriber.onNext("Hello");
+                        subscriber.onNext("Hi");
+                        subscriber.onNext("world");
+                        subscriber.onCompleted();
+                    }
+                }
+        );
+
+
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -67,9 +125,6 @@ public class ComplexActivity extends Activity {
 
         return super.onTouchEvent(event);
     }
-
-
-    private int contentPosition = -300;
 
     private void setAnimalView(int height) {
         Log.i(TAG, "setAnimalView 动画执行");
