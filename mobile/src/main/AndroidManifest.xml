@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogBActivity"/>
+
+        <service android:name=".MyService"/>
     </application>
 
 </manifest>
